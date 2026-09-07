@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Medicine Management</title>
+
+    <link rel="stylesheet" href="medicines.css">
+</head>
+
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        💊 MedStore
+    </div>
+
+    <div class="menu-title">
+        MAIN MENU
+    </div>
+
+    <a href="dashboard.html">
+        🏠 Dashboard
+    </a>
+
+    <a href="medicines.html" class="active">
+        💊 Medicines
+    </a>
+
+    <a href="#">
+        🚚 Suppliers
+    </a>
+
+    <a href="#">
+        👥 Customers
+    </a>
+
+    <a href="#">
+        📦 Purchases
+    </a>
+
+    <a href="#">
+        🧾 Sales / Billing
+    </a>
+
+    <a href="#">
+        📊 Stock
+    </a>
+
+    <a href="#">
+        ⏰ Expiry
+    </a>
+
+    <a href="#">
+        📈 Reports
+    </a>
+
+    <a href="index.html" class="logout">
+        🚪 Logout
+    </a>
+
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div>
+            <h1>Medicine Management</h1>
+
+            <p>
+                Manage medicines, stock, batches and expiry dates
+            </p>
+        </div>
+
+        <button class="add-btn" onclick="openMedicineForm()">
+            + Add Medicine
+        </button>
+
+    </header>
+
+
+    <!-- ================= STATISTICS ================= -->
+
+    <section class="statistics">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                💊
+            </div>
+
+            <div>
+                <p>Total Medicines</p>
+
+                <h2 id="totalMedicines">
+                    0
+                </h2>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📦
+            </div>
+
+            <div>
+                <p>Total Stock</p>
+
+                <h2 id="totalStock">
+                    0
+                </h2>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card warning">
+
+            <div class="stat-icon">
+                ⚠️
+            </div>
+
+            <div>
+                <p>Low Stock</p>
+
+                <h2 id="lowStock">
+                    0
+                </h2>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card danger">
+
+            <div class="stat-icon">
+                ⏰
+            </div>
+
+            <div>
+                <p>Expired</p>
+
+                <h2 id="expiredMedicines">
+                    0
+                </h2>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SEARCH ================= -->
+
+    <section class="toolbar">
+
+        <input
+            type="text"
+            id="searchMedicine"
+            placeholder="🔍 Search medicine, batch or company..."
+            onkeyup="displayMedicines()"
+        >
+
+
+        <select
+            id="categoryFilter"
+            onchange="displayMedicines()"
+        >
+
+            <option value="">
+                All Categories
+            </option>
+
+            <option value="Tablet">
+                Tablet
+            </option>
+
+            <option value="Capsule">
+                Capsule
+            </option>
+
+            <option value="Syrup">
+                Syrup
+            </option>
+
+            <option value="Injection">
+                Injection
+            </option>
+
+            <option value="Cream">
+                Cream
+            </option>
+
+            <option value="Drops">
+                Drops
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+
+        </select>
+
+
+        <button onclick="exportCSV()">
+            📥 Export CSV
+        </button>
+
+        <button onclick="window.print()">
+            🖨 Print
+        </button>
+
+    </section>
+
+
+    <!-- ================= MEDICINE TABLE ================= -->
+
+    <section class="table-card">
+
+        <div class="table-header">
+
+            <h2>
+                Medicine Inventory
+            </h2>
+
+            <span id="medicineCount">
+                0 medicines
+            </span>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Medicine</th>
+
+                        <th>Category</th>
+
+                        <th>Company</th>
+
+                        <th>Batch</th>
+
+                        <th>Expiry</th>
+
+                        <th>Purchase Price</th>
+
+                        <th>Selling Price</th>
+
+                        <th>Stock</th>
+
+                        <th>Status</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="medicineTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================= ADD / EDIT FORM ================= -->
+
+<div
+    id="medicineModal"
+    class="modal"
+>
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h2 id="formTitle">
+                Add Medicine
+            </h2>
+
+            <button
+                class="close-btn"
+                onclick="closeMedicineForm()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form
+            id="medicineForm"
+            onsubmit="saveMedicine(event)"
+        >
+
+            <input
+                type="hidden"
+                id="medicineId"
+            >
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Medicine Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="medicineName"
+                        placeholder="e.g. Paracetamol 500mg"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Category *
+                    </label>
+
+                    <select
+                        id="medicineCategory"
+                        required
+                    >
+
+                        <option value="">
+                            Select Category
+                        </option>
+
+                        <option>
+                            Tablet
+                        </option>
+
+                        <option>
+                            Capsule
+                        </option>
+
+                        <option>
+                            Syrup
+                        </option>
+
+                        <option>
+                            Injection
+                        </option>
+
+                        <option>
+                            Cream
+                        </option>
+
+                        <option>
+                            Drops
+                        </option>
+
+                        <option>
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Company *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="company"
+                        placeholder="Company name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Supplier
+                    </label>
+
+                    <input
+                        type="text"
+                        id="supplier"
+                        placeholder="Supplier name"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Batch Number *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="batchNumber"
+                        placeholder="e.g. PCM2026A"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Expiry Date *
+                    </label>
+
+                    <input
+                        type="date"
+                        id="expiryDate"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Purchase Price *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="purchasePrice"
+                        placeholder="0.00"
+                        min="0"
+                        step="0.01"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Selling Price *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="sellingPrice"
+                        placeholder="0.00"
+                        min="0"
+                        step="0.01"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Quantity *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="quantity"
+                        placeholder="0"
+                        min="0"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Minimum Stock *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="minimumStock"
+                        value="10"
+                        min="0"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        placeholder="Medicine description..."
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-buttons">
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    onclick="closeMedicineForm()"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="save-btn"
+                >
+                    Save Medicine
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script src="medicines.js"></script>
+
+</body>
+</html>

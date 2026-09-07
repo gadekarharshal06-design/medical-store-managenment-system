@@ -1,0 +1,236 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+}
+
+
+/* HEADER */
+
+.dashboard-header {
+    height: 70px;
+    background: #0f5132;
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 30px;
+}
+
+.dashboard-header h1 {
+    font-size: 24px;
+}
+
+.dashboard-header p {
+    font-size: 13px;
+}
+
+
+/* SIDEBAR */
+
+.sidebar {
+    position: fixed;
+
+    top: 70px;
+    left: 0;
+
+    width: 230px;
+    height: calc(100vh - 70px);
+
+    background: #173d2b;
+
+    padding: 20px 12px;
+}
+
+.sidebar h2 {
+    color: #aaa;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.sidebar a {
+    display: block;
+
+    color: white;
+    text-decoration: none;
+
+    padding: 13px;
+
+    margin-bottom: 5px;
+
+    border-radius: 7px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #2d7653;
+}
+
+.sidebar .logout {
+    margin-top: 30px;
+    background: #8b1e1e;
+}
+
+
+/* MAIN */
+
+.main {
+    margin-left: 230px;
+
+    padding: 30px;
+}
+
+.main > h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.main > p {
+    color: #64748b;
+    margin-bottom: 25px;
+}
+
+
+/* CARDS */
+
+.cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.card {
+    background: white;
+
+    padding: 22px;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,0.08);
+}
+
+.icon {
+    font-size: 35px;
+}
+
+.card h3 {
+    font-size: 26px;
+    margin-bottom: 5px;
+}
+
+.card p {
+    color: #64748b;
+}
+
+
+/* QUICK ACTIONS */
+
+.quick-actions {
+    background: white;
+
+    margin-top: 25px;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,0.08);
+}
+
+.quick-actions h2 {
+    margin-bottom: 18px;
+}
+
+.quick-actions button {
+    border: none;
+
+    background: #0f5132;
+
+    color: white;
+
+    padding: 12px 18px;
+
+    margin-right: 10px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+.quick-actions button:hover {
+    background: #2d7653;
+}
+
+
+/* RECENT SALES */
+
+.recent {
+    background: white;
+
+    margin-top: 25px;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,0.08);
+}
+
+.recent h2 {
+    margin-bottom: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 13px;
+
+    text-align: left;
+
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background: #f1f5f3;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+    .sidebar {
+        width: 180px;
+    }
+
+    .main {
+        margin-left: 180px;
+        padding: 20px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+}
