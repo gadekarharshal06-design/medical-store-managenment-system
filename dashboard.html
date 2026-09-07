@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Medical Store Dashboard</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div>
+            <h1>💊 Medical Store</h1>
+            <p>Management System</p>
+        </div>
+
+        <div class="dashboard-date">
+            📅 <span id="date"></span>
+        </div>
+    </header>
+
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <h2>MENU</h2>
+
+        <a class="active" href="dashboard.html">🏠 Dashboard</a>
+        <a href="#">💊 Medicines</a>
+        <a href="#">👨‍💼 Suppliers</a>
+        <a href="#">👥 Customers</a>
+        <a href="#">📦 Purchases</a>
+        <a href="#">💰 Sales / Billing</a>
+        <a href="#">📊 Stock</a>
+        <a href="#">⚠️ Expiry</a>
+        <a href="#">📈 Reports</a>
+
+        <a class="logout" href="index.html">🚪 Logout</a>
+
+    </aside>
+
+
+    <!-- Main Dashboard -->
+    <main class="main">
+
+        <h2>Dashboard</h2>
+
+        <p>Welcome to Medical Store Management System</p>
+
+
+        <!-- Dashboard Cards -->
+        <section class="cards">
+
+            <div class="card">
+                <div class="icon">💊</div>
+                <div>
+                    <h3>250</h3>
+                    <p>Total Medicines</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon">👨‍💼</div>
+                <div>
+                    <h3>35</h3>
+                    <p>Suppliers</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon">👥</div>
+                <div>
+                    <h3>120</h3>
+                    <p>Customers</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon">📦</div>
+                <div>
+                    <h3>12</h3>
+                    <p>Low Stock</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon">⚠️</div>
+                <div>
+                    <h3>5</h3>
+                    <p>Expiry Alerts</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon">💰</div>
+                <div>
+                    <h3>₹12,500</h3>
+                    <p>Today's Sales</p>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+
+            <h2>Quick Actions</h2>
+
+            <button onclick="alert('Add Medicine')">
+                ➕ Add Medicine
+            </button>
+
+            <button onclick="alert('Create Bill')">
+                🧾 Create Bill
+            </button>
+
+            <button onclick="alert('New Purchase')">
+                📦 New Purchase
+            </button>
+
+            <button onclick="alert('View Reports')">
+                📊 View Reports
+            </button>
+
+        </section>
+
+
+        <!-- Recent Sales -->
+        <section class="recent">
+
+            <h2>Recent Sales</h2>
+
+            <table>
+
+                <tr>
+                    <th>Bill No.</th>
+                    <th>Customer</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                </tr>
+
+                <tr>
+                    <td>INV001</td>
+                    <td>Rahul</td>
+                    <td>₹850</td>
+                    <td>Today</td>
+                </tr>
+
+                <tr>
+                    <td>INV002</td>
+                    <td>Priya</td>
+                    <td>₹1,250</td>
+                    <td>Today</td>
+                </tr>
+
+                <tr>
+                    <td>INV003</td>
+                    <td>Amit</td>
+                    <td>₹560</td>
+                    <td>Yesterday</td>
+                </tr>
+
+            </table>
+
+        </section>
+
+    </main>
+
+
+    <script>
+        document.getElementById("date").innerText =
+            new Date().toLocaleDateString();
+    </script>
+
+</body>
+</html>
